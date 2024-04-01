@@ -6,19 +6,26 @@
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:03:45 by nhuang            #+#    #+#             */
-/*   Updated: 2024/03/29 16:34:51 by nhuang           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:34:48 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 
-void	bit_handler(int bit)
+void	bit_handler(int signal)
 {
-	int	i;
+	static int	i;
+	static int	bit;
 
-	i = 0;
-
-
+	if (signal == SIGUSR1)
+		i |= (0x01 << bit);
+	bit++;
+	if (bit == 8)
+	{
+		ft_printf("%c", i);
+		bit = 0;
+		i = 0;
+	}
 }
 
 int	main(void)
@@ -28,6 +35,7 @@ int	main(void)
 	{
 		signal(SIGUSR1, bit_handler);
 		signal(SIGUSR2, bit_handler);
+		pause();
 	}
 	return (0);
 }
