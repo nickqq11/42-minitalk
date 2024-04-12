@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 20:03:45 by nhuang            #+#    #+#             */
-/*   Updated: 2024/04/12 16:21:54 by nhuang           ###   ########.fr       */
+/*   Created: 2024/04/12 16:16:34 by nhuang            #+#    #+#             */
+/*   Updated: 2024/04/12 16:25:33 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	bit_handler(int signal)
-{
-	static int	i;
-	static int	bit;
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdarg.h> 
+# include <signal.h>
+# include "ft_printf/ft_printf.h"
+# include "ft_printf/ft_libft/libft.h"
 
-	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
-	bit++;
-	if (bit == 8)
-	{
-		ft_printf("%c", i);
-		bit = 0;
-		i = 0;
-	}
-}
-
-int	main(void)
-{
-	ft_printf("Server is running now. \n PID is %d. \n", getpid());
-	while (1)
-	{
-		signal(SIGUSR1, bit_handler);
-		signal(SIGUSR2, bit_handler);
-		pause();
-	}
-	return (0);
-}
+#endif

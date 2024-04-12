@@ -6,11 +6,11 @@
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:03:54 by nhuang            #+#    #+#             */
-/*   Updated: 2024/04/01 19:22:03 by nhuang           ###   ########.fr       */
+/*   Updated: 2024/04/12 16:21:42 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
+#include "minitalk.h"
 
 void	sendit(int pid, char *str, int len)
 {

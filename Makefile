@@ -6,7 +6,7 @@
 #    By: nhuang <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 20:03:08 by nhuang            #+#    #+#              #
-#    Updated: 2024/04/05 17:59:48 by nhuang           ###   ########.fr        #
+#    Updated: 2024/04/12 15:31:57 by nhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,4 +23,11 @@ all:
 	@echo "ready to talk"
 
 clean:
-	@make clea
+	@make clean -s -C $(PRINTF)
+
+fclean: clean
+	@make fclean -s -C $(PRINTF)
+	@rm -f $(SERVER) $(CLIENT)
+	@echo "ALL clean"
+
+re: fclean all
