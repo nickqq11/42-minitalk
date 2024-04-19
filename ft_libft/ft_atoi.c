@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 20:03:45 by nhuang            #+#    #+#             */
-/*   Updated: 2024/04/19 20:30:30 by nhuang           ###   ########.fr       */
+/*   Created: 2023/03/20 18:10:12 by nhuang            #+#    #+#             */
+/*   Updated: 2023/04/01 17:24:03 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include"libft.h"
 
-void	bit_handler(int signal)
+int	ft_atoi(const char *str)
 {
-	static int	i;
-	static int	bit;
+	int	i;
+	int	sum;
+	int	neg;
 
-	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
-	bit++;
-	if (bit == 8)
+	i = 0;
+	sum = 0;
+	neg = 1;
+	while (str[i] != '\0' && (str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == ' ' || str[i] == '\f'))
+	i++;
+	if (str[i] == '-')
 	{
-		ft_printf("%c", i);
-		bit = 0;
-		i = 0;
+		neg = -1;
+		i++;
 	}
-}
-
-int	main(void)
-{
-	ft_printf("Server is running now. \n PID is %d. \n", getpid());
-	while (1)
+	else if (str[i] == '+')
+		i++;
+	while (str[i] != '\0' && ft_isdigit(str[i]))
 	{
-		signal(SIGUSR1, bit_handler);
-		signal(SIGUSR2, bit_handler);
-		pause();
+		sum = (sum * 10) + (str[i++] - '0');
 	}
-	return (0);
+	return (sum * neg);
 }
