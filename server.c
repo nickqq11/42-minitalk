@@ -6,24 +6,42 @@
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:03:45 by nhuang            #+#    #+#             */
-/*   Updated: 2024/04/19 20:30:30 by nhuang           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:22:49 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	bit_handler(int signal)
+unsigned char	putbyte(int arr[])
+{
+	unsigned char	byte;
+	int				i;
+	char			c;
+
+	byte = 0;
+	i = 0;
+	while (i < 8)
+	{
+		byte |= (arr[i] << (7 - i));
+		i++;
+	}
+	c = (char) byte;
+	return (c);
+}
+
+void	bit_handler(int sig)
 {
 	static int	i;
-	static int	bit;
+	int			byte[8];
 
-	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
-	bit++;
-	if (bit == 8)
+	if (sig == SIGUSR1)
+		byte[i] = 1;
+	else if (sig == SIGUSR2)
+		byte[i] = 0;
+	i++;
+	if (i == 8)
 	{
-		ft_printf("%c", i);
-		bit = 0;
+		ft_printf("%c", putbyte(byte));
 		i = 0;
 	}
 }

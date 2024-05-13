@@ -6,7 +6,7 @@
 /*   By: nhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:03:54 by nhuang            #+#    #+#             */
-/*   Updated: 2024/04/19 20:30:32 by nhuang           ###   ########.fr       */
+/*   Updated: 2024/05/13 22:58:24 by nhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ void	sendit(int pid, char *str, int len)
 	int	i;
 
 	i = 0;
-	biting = 0;
 	while (i < len)
 	{
-		while (biting < 8)
+		biting = 8;
+		while (biting--)
 		{
-			if ((str[i] << biting) & 1)
+			if ((str[i] >> biting) & 1)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
 			usleep(100);
-			biting++;
-			ft_printf("i %d, bit %d\n", i, biting);
 		}
-		biting = 0;
 		i++;
 	}
 }
